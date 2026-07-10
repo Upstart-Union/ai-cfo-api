@@ -1,14 +1,26 @@
-from app.services.finance.metrics import (
-    total_income,
-    total_expenses,
-    net_profit,
-)
+def calculate_metrics(df):
+    """
+    Calculate simple financial metrics from uploaded data.
 
-class FinancialEngine:
+    Expected columns:
+    Revenue
+    Expenses
+    """
 
-    def analyze(self, dataframe):
-        return {
-            "income": total_income(dataframe),
-            "expenses": total_expenses(dataframe),
-            "profit": net_profit(dataframe),
-        }
+    revenue = float(df["Revenue"].sum())
+
+    expenses = float(df["Expenses"].sum())
+
+    profit = revenue - expenses
+
+    if revenue > 0:
+        margin = round((profit / revenue) * 100, 2)
+    else:
+        margin = 0
+
+    return {
+        "revenue": revenue,
+        "expenses": expenses,
+        "profit": profit,
+        "profit_margin": margin,
+    }
