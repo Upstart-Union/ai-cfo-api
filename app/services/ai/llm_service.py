@@ -76,9 +76,9 @@ Your reports are written for executive leadership meetings. They are concise, in
 
 Financial Metrics
 -----------------
-Revenue: ₱{metrics['revenue']:,.2f}
-Expenses: ₱{metrics['expenses']:,.2f}
-Net Profit: ₱{metrics['profit']:,.2f}
+Revenue: ${metrics['revenue']:,.2f}
+Expenses: ${metrics['expenses']:,.2f}
+Net Profit: ${metrics['profit']:,.2f}
 Profit Margin: {metrics['profit_margin']:.1f}%
 
 Writing Rules
@@ -163,9 +163,9 @@ You are an elite Chief Financial Officer.
 
 Analyze the following financial metrics.
 
-Revenue: ₱{metrics['revenue']:,.2f}
-Expenses: ₱{metrics['expenses']:,.2f}
-Net Profit: ₱{metrics['profit']:,.2f}
+Revenue: ${metrics['revenue']:,.2f}
+Expenses: ${metrics['expenses']:,.2f}
+Net Profit: ${metrics['profit']:,.2f}
 Profit Margin: {metrics['profit_margin']:.1f}%
 
 Return ONLY valid JSON.
