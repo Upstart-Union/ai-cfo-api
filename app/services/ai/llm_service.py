@@ -197,6 +197,12 @@ Return EXACTLY this format:
 
     response = generate(prompt)
 
+    response = (
+        response.replace("```json", "")
+        .replace("```", "")
+        .strip()
+    )
+
     return json.loads(response)
 
 

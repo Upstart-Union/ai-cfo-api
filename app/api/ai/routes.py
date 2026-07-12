@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from app.services.ai.llm_service import (
     chat,
     generate_summary,
+    generate_recommendations,
 )
 
 router = APIRouter(
