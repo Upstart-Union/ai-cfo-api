@@ -12,7 +12,7 @@ class ForecastRequest(BaseModel):
     profit: float
     profit_margin: float
 
-@router.post("/")
+@router.post("")
 def forecast(data: ForecastRequest):
     revenue = data.revenue
     expenses = data.expenses
