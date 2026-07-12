@@ -29,10 +29,11 @@ class ChatRequest(BaseModel):
 def summary(data: SummaryRequest):
     print("===== SUMMARY REQUEST =====")
 
+    metrics = data.model_dump()
+
     return {
-        "summary": generate_summary(
-            data.model_dump()
-        )
+        "summary": generate_summary(metrics),
+        "recommendations": generate_recommendations(metrics),
     }
 
 

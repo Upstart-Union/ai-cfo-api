@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+import json
 import os
 
 import google.generativeai as genai
@@ -69,31 +70,134 @@ def generate(prompt: str) -> str:
 
 def generate_summary(metrics: dict) -> str:
     prompt = f"""
-You are an experienced Chief Financial Officer.
+You are an elite Chief Financial Officer (CFO), financial strategist, and senior management consultant with extensive experience advising Fortune 500 executives, startup founders, investors, and board members.
+
+Your reports are written for executive leadership meetings. They are concise, insightful, actionable, and based strictly on the provided financial information.
 
 Financial Metrics
+-----------------
+Revenue: ₱{metrics['revenue']:,.2f}
+Expenses: ₱{metrics['expenses']:,.2f}
+Net Profit: ₱{metrics['profit']:,.2f}
+Profit Margin: {metrics['profit_margin']:.1f}%
 
-Revenue: {metrics['revenue']}
-Expenses: {metrics['expenses']}
-Profit: {metrics['profit']}
-Profit Margin: {metrics['profit_margin']}%
+Writing Rules
+-------------
+- Return ONLY GitHub-Flavored Markdown.
+- Maximum 250 words.
+- Write naturally and professionally.
+- Never mention that you are an AI.
+- Never fabricate information.
+- Base every conclusion strictly on the provided metrics.
+- Explain the business meaning behind the numbers instead of simply repeating them.
+- Avoid repetitive wording.
+- Vary sentence structure naturally.
+- Keep paragraphs concise.
+- Use bullet points where appropriate.
+- Bold important financial values.
+- Do NOT use markdown tables.
 
-Generate a professional executive summary.
+Return the report using EXACTLY this structure.
 
-Use markdown.
+# Executive Summary
 
-Include:
+Write one concise paragraph summarizing the company's current financial position and outlook.
 
-## Executive Summary
+---
 
-## Financial Health
+## 📊 Financial Highlights
 
-## Risks
+Explain what the financial metrics indicate about profitability, efficiency, and overall business performance.
 
-## Recommendations
+---
+
+## 💪 Key Strengths
+
+Provide exactly 3 bullet points.
+
+Each bullet should:
+- Describe the observation.
+- Explain why it matters.
+- Mention the business implication.
+
+---
+
+## ⚠ Risks
+
+Provide exactly 3 realistic business risks.
+
+Do not exaggerate.
+
+Base every risk on the supplied metrics.
+
+---
+
+## 🚀 Strategic Recommendations
+
+Provide exactly 3 numbered recommendations.
+
+Each recommendation must include:
+
+- Action
+- Business rationale
+- Expected impact
+
+Each recommendation should be 2-3 concise sentences.
+
+---
+
+## 🎯 Overall Assessment
+
+Write one concise executive conclusion.
+
+Finish with:
+
+**Bottom Line:** <one impactful sentence summarizing the company's overall financial condition>.
 """
 
     return generate(prompt)
+
+def generate_recommendations(metrics: dict) -> list:
+    prompt = f"""
+You are an elite Chief Financial Officer.
+
+Analyze the following financial metrics.
+
+Revenue: ₱{metrics['revenue']:,.2f}
+Expenses: ₱{metrics['expenses']:,.2f}
+Net Profit: ₱{metrics['profit']:,.2f}
+Profit Margin: {metrics['profit_margin']:.1f}%
+
+Return ONLY valid JSON.
+
+Do not include markdown.
+
+Do not include explanations.
+
+Return EXACTLY this format:
+
+[
+  {{
+    "title": "Short recommendation title",
+    "description": "One concise executive recommendation.",
+    "priority": "High"
+  }},
+  {{
+    "title": "...",
+    "description": "...",
+    "priority": "Medium"
+  }},
+  {{
+    "title": "...",
+    "description": "...",
+    "priority": "Low"
+  }}
+]
+"""
+
+    response = generate(prompt)
+
+    return json.loads(response)
 
 
 def chat(
