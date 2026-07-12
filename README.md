@@ -107,6 +107,18 @@ Dashboard   Forecast      AI Chat
 
 ---
 
+# API Key Guide
+
+Step 0. Ensure both ai-cfo-api and ai-cfo-web are under the same workspace.
+
+Step 1. Create your own Google Gemini AI key in https://aistudio.google.com/api-keys
+
+Step 2. Create a .env file in ai-cfo-api repository.
+
+Step 3. Copy the contents from .env.example in the ai-cfo-api.
+
+Step 4. Replace your_api_key_here with your own API Key for the AI integration to work.
+
 # Installation
 
 ## Clone
